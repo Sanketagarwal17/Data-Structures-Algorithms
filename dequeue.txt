@@ -1,0 +1,102 @@
+#include<iostream>
+using namespace std;
+
+class DQ{
+  int N;
+  int f,r;
+  int *a;
+
+public:
+  DQ(int s){
+    N = s+2;
+    a = new int[N];
+    f = 0;
+    r = N-1;
+  }
+
+  bool isfull(){
+    if(r==(f+1)%N) return true;
+    else return false;
+  }
+
+  bool isEmpty(){
+    if((r+1)%N==f) return true;
+    else return false;
+  }
+
+  void push(int s){
+    if(isfull()) {
+      cout << "Queue Full\n";
+      return;
+    }
+
+    a[f] = s;
+    f = (f+1)%N;
+  }
+
+  int pop(){
+    if(isEmpty()) {
+      cout << "Queue Empty\n";
+      return 0;
+    }
+
+    f = (f-1+N)%N;
+    return a[f];
+  }
+
+  void insert(int s){
+    if(isfull()) {
+      cout << "Queue Full\n";
+      return;
+    }
+
+    a[r] = s;
+    r = (r-1+N)%N;
+  }
+
+  int remove(){
+    if(isEmpty()) {
+      cout << "Queue Empty\n";
+      return 0;
+    }
+
+    r = (r+1)%N;
+    return a[r];
+  }
+
+
+};
+
+
+int main(){
+  DQ p(10);
+  int s;
+  while(true){
+    cout<< "1.push\n"<<"2.Pop\n"<<"3.insert\n"<<"4.remove\n";
+    cin>>s;
+    switch(s){
+      case 1: {
+              int x;
+              cin>>x;
+              p.push(x);
+              break;
+            }
+      case 2: {
+              cout<<p.pop()<<'\n';
+              break;
+            }
+      case 3: {
+              int x;
+              cin>>x;
+              p.insert(x);
+              break;
+            }
+      case 4: {
+              cout<<p.remove()<<'\n';
+              break;
+            }
+    }
+
+    cout<<"\n";
+  }
+}
