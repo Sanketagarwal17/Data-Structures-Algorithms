@@ -1,0 +1,76 @@
+#include<iostream>
+using namespace std;
+
+class Node{
+public:
+  int data;
+  Node *next;
+  Node(int x){
+    this->data = x;
+    next = NULL;
+  }
+};
+
+void addq(Node **root,int x){
+  Node *n;
+  n = new Node(x);
+
+  if(*root == NULL){
+    *root = n;
+    (*root)->next = *root;
+  }
+  else{
+    n->next = (*root)->next;
+    (*root)->next = n;
+    *root = n;
+  }
+}
+
+bool deleteq(Node **r , int *x){
+  if(*r == NULL) return false;
+
+  Node *p;
+  p = (*r)->next;
+  if((*r)->next == *r) {*x = (*r)->data; *r = NULL;}
+  else{
+    *x = p->data;
+    (*r)->next = p->next;
+  }
+
+  free(p);
+  return true;
+}
+
+void printq(Node *r){
+  Node *p;
+  if(r==NULL) return;
+  p = r->next;
+  while(p!=r){
+    cout << p->data <<' ';
+    p = p->next;
+  }
+  cout<<p->data<<'\n';
+  cout<<'\n';
+}
+
+
+int main(){
+  int s;
+  Node *root = NULL;
+  while(true){
+    cout<< "1.add\n"<<"2.Pop\n"<<"3.remove\n"<<"4.print\n";
+    cin>>s;
+    switch(s){
+      case 1: {
+              int x;
+              cin>>x;
+              addq(&root,x);
+              break;
+            }
+       case 2: {int x; if(deleteq(&root,&x)) cout<<x<<'\n'; break;}
+      //case 3: {int x; cin>>x; delet(&root, x); break;}
+      case 4: printq(root); break;
+    }
+
+  }
+}
