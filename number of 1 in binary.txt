@@ -1,0 +1,8 @@
+int count (int x){
+    int c=0;
+    while(x){
+        x=x&(x-1);
+        c++;
+    }
+    return c;
+}
